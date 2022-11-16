@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharSetTool", "CharSetTool\CharSetTool.csproj", "{0F618DEF-8461-47EB-B54A-687299EC4356}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringMapTool", "StringMapTool\StringMapTool.csproj", "{8399C134-7D1D-4C88-8DB4-9AB558424EC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringMapTool", "StringMapTool\StringMapTool.csproj", "{8399C134-7D1D-4C88-8DB4-9AB558424EC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AKBTool", "AKBTool\AKBTool.csproj", "{35DE7FF7-5A1E-4692-BCBE-3AAA97DDAA55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{8399C134-7D1D-4C88-8DB4-9AB558424EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8399C134-7D1D-4C88-8DB4-9AB558424EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8399C134-7D1D-4C88-8DB4-9AB558424EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35DE7FF7-5A1E-4692-BCBE-3AAA97DDAA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35DE7FF7-5A1E-4692-BCBE-3AAA97DDAA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35DE7FF7-5A1E-4692-BCBE-3AAA97DDAA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35DE7FF7-5A1E-4692-BCBE-3AAA97DDAA55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
