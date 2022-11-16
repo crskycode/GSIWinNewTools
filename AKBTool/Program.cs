@@ -1,9 +1,13 @@
-﻿namespace AKBTool
+﻿using System.Text;
+
+namespace AKBTool
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             if (args.Length < 2)
             {
                 Console.WriteLine("Usage:");
