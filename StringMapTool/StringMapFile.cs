@@ -5,7 +5,7 @@ namespace StringMapTool
 {
     internal class StringMapFile
     {
-        readonly SortedDictionary<uint, string> _stringMap = new();
+        readonly SortedDictionary<int, TString> _stringMap = new();
 
         public void Load(string filePath)
         {
@@ -48,7 +48,7 @@ namespace StringMapTool
 
                 totalSize += (stream.Position - offset);
 
-                if (!_stringMap.TryAdd(key, str))
+                if (!_stringMap.TryAdd(i, new TString { Key = key, String = str }))
                 {
                     Console.WriteLine("WARNING: Duplicate string key.");
                 }
@@ -69,19 +69,19 @@ namespace StringMapTool
 
             writer.Write(count);
 
-            var _posMap = new Dictionary<uint, TEntry>(count);
+            var _posMap = new Dictionary<int, TEntry>(count);
 
             foreach (var e in _stringMap)
             {
                 _posMap.Add(e.Key, new TEntry { Pos1 = stream.Position });
-                writer.Write(e.Key);
+                writer.Write(e.Value.Key);
                 writer.Write(0);
             }
 
             foreach (var e in _stringMap)
             {
                 _posMap[e.Key].Pos2 = stream.Position;
-                writer.WriteNullTerminatedUnicodeString(e.Value);
+                writer.WriteNullTerminatedUnicodeString(e.Value.String);
             }
 
             foreach (var e in _posMap)
@@ -91,6 +91,12 @@ namespace StringMapTool
             }
 
             writer.Flush();
+        }
+
+        class TString
+        {
+            public uint Key;
+            public string String = string.Empty;
         }
 
         class TEntry
@@ -105,10 +111,10 @@ namespace StringMapTool
 
             foreach (var e in _stringMap)
             {
-                var s = e.Value;
+                var s = e.Value.String;
 
-                writer.WriteLine($"◇{e.Key:X8}◇{s}");
-                writer.WriteLine($"◆{e.Key:X8}◆{s}");
+                writer.WriteLine($"◇{e.Key:X8}◇{e.Value.Key:X8}◇{s}");
+                writer.WriteLine($"◆{e.Key:X8}◆{e.Value.Key:X8}◆{s}");
                 writer.WriteLine();
             }
 
@@ -138,26 +144,27 @@ namespace StringMapTool
                 if (line.Length == 0 || line[0] != '◆')
                     continue;
 
-                var m = Regex.Match(line, @"◆(\w+)◆(.+$)");
+                var m = Regex.Match(line, @"◆(\w+)◆(\w+)◆(.+$)");
 
-                if (!m.Success || m.Groups.Count != 3)
+                if (!m.Success || m.Groups.Count != 4)
                     throw new Exception($"Bad format at line: {ln}");
 
-                var key = uint.Parse(m.Groups[1].Value, NumberStyles.HexNumber);
-                var str = m.Groups[2].Value;
+                var id = int.Parse(m.Groups[1].Value, NumberStyles.HexNumber);
+                var key = uint.Parse(m.Groups[2].Value, NumberStyles.HexNumber);
+                var str = m.Groups[3].Value;
 
                 if (merge)
                 {
-                    if (!_stringMap.ContainsKey(key))
+                    if (!_stringMap.ContainsKey(id))
                     {
                         throw new Exception($"Invalid key at line: {ln}");
                     }
 
-                    _stringMap[key] = str;
+                    _stringMap[id].String = str;
                 }
                 else
                 {
-                    _stringMap.Add(key, str);
+                    _stringMap.TryAdd(id, new TString { Key = key, String = str });
                 }
             }
         }
