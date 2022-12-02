@@ -113,8 +113,8 @@ namespace StringMapTool
             {
                 var s = e.Value.String;
 
-                writer.WriteLine($"◇{e.Key:X8}◇{e.Value.Key:X8}◇{s}");
-                writer.WriteLine($"◆{e.Key:X8}◆{e.Value.Key:X8}◆{s}");
+                writer.WriteLine($"◇{e.Key:X4}◇{e.Value.Key:X4}◇{s}");
+                writer.WriteLine($"◆{e.Key:X4}◆{e.Value.Key:X4}◆{s}");
                 writer.WriteLine();
             }
 
